@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        
+        
+        <script src="wsConnection.js"></script>
+        <script src="gameplayMechanics.js"></script>
+
+        <h1>Secrte Hitler</h1>
+        <fieldset id="titleScreen">
+           Ip-Adresse <input type="text" id = "ip"><br>
+           Port <input type="text" id = "port"><br>
+           Name <input type="text" id = "name"><br>
+           Lobby <input type="text" id = "lobby"><br>
+           <button>connect</button>
+        </fieldset>
+
+        <fieldset id="basicInfo" disabled=true style="display:none">
+            Your Fraction <h4 id="myFraction"></h4>
+            Your Role <h4 id="myRole"></h4>
+        </fieldset>
+
+        <fieldset id="decision" disabled=true style="display:none">
+            Your Fraction <h4 id="myFraction"></h4>
+            Your Role <h4 id="myRole"></h4>
+        </fieldset>
+
+        <fieldset id="gameScreenFascist" disabled=true style="display:none">
+            Hitler <h4 id="hitlerName"></h4>
+            Your team mates <h4 id="teamMates"></h4>
+        </fieldset>
+
+        <fieldset id="testF">
+            <button onclick="addButton()">MakeButton</button>
+            <button onclick="removeButtons()">RemoveButton</button>
+        </fieldset>
+
+        <div id="test">
+            <button>test</button>
+        </div>
+        
+
+        <button type="button"
+        onclick="myFunction()">
+        Click me to echo</button>
+
+        <p id="demo"></p>
+
+    </body>
+</html> 
