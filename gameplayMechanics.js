@@ -7,7 +7,7 @@ function addButton(buttonText){
         removeButtons();
     }
 
-    document.getElementById("test").appendChild(newButton);
+    document.getElementById("choices").appendChild(newButton);
 }
 
 function removeButtons(){

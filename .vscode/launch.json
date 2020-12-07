@@ -9,8 +9,8 @@
         {
             "type": "pwa-chrome",
             "request": "launch",
-            "name": "Open test.html",
-            "file": "d:\\Mobar-Coder\\Secret-Bundestag-Client\\test.html"
+            "name": "Open SecretHitler.html",
+            "file": "d:\\Mobar-Coder\\Secret-Bundestag-Client\\SecretHitler.html"
         }
     ]
 }
