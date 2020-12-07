@@ -3,8 +3,8 @@ var connection;
 function connect(){
   connection = new WebSocket('wss://' + document.getElementById("ip").value + ":" + document.getElementById("port").value);
   connection.onopen = function (){
-    var msg = {messageType: "signup", name: document.getElementById("name").value, lobby:document.getElementById("lobby").value};
-    connection.send(JSON.stringify(msg));
+    var msg = {name: document.getElementById("name").value, lobby:document.getElementById("lobby").value};
+    connection.send(makeMessage("join", msg));
   }
 
   connection.onmessage = function(event) {
@@ -31,19 +31,15 @@ function connect(){
 }
 
 function handleServerMessage(serverMsg){
-  if(!serverMsg.messageType.localeCompare("gameStart")){
-      document.getElementById("myRole").innerHTML = serverMsg.role;
-      document.getElementById("myFraction").innerHTML = serverMsg.fraction;
-      players = "";
-      for(var i = 0; i < serverMsg.players.length; i++){
-        players += serverMsg.players[i] + "\n";
-      }
-      document.getElementById("players").innerText = players;
-      if(!serverMsg.fraction.localeCompare("fascist") && serverMsg.role.localeCompare("Hitler")){
-          document.getElementById("hitlerName").innerHTML = serverMsg.hitler;
+  if(!serverMsg.name.localeCompare("gameStart")){
+      document.getElementById("myRole").innerHTML = serverMsg.body.role;
+      document.getElementById("myFraction").innerHTML = serverMsg.body.fraction;
+      updatePlayersField(serverMsg)
+      if(!serverMsg.fraction.localeCompare("fascist") && serverMsg.body.role.localeCompare("Hitler")){
+          document.getElementById("hitlerName").innerHTML = serverMsg.body.hitler;
           var teammates = "";
-          for(var i = 0; i < serverMsg.teammates.length; i++){
-              teammates += serverMsg.teammates[i];
+          for(var i = 0; i < serverMsg.body.teammates.length; i++){
+              teammates += serverMsg.body.teammates[i];
           }
           document.getElementById("teamMates").innerHTML = teammates;
       }
@@ -54,20 +50,21 @@ function handleServerMessage(serverMsg){
       document.getElementById("gameState").disabled = false;
       document.getElementById("gameState").style.display = "inline-block";
   }
-  else if(!serverMsg.messageType.localeCompare("decision")){
+  else if(!serverMsg.name.localeCompare("requestDecision")){
       
-      for(var i = 0; i < serverMsg.choices.length; i++){
-          addButton(serverMsg.choices[i]);
+      for(var i = 0; i < serverMsg.body.choices.length; i++){
+          addButton(serverMsg.body.choices[i]);
       }
   }
-  else if(!serverMsg.messageType.localeCompare("gameState")){
-    document.getElementById("libPol").innerText = serverMsg.liberalPolicies;
-    document.getElementById("fasPol").innerText = serverMsg.fascistPolicies;
-    document.getElementById("chancellor").innerText = serverMsg.chancellor;
-    document.getElementById("candidate").innerText = serverMsg.candidate;
-    document.getElementById("president").innerText = serverMsg.president;
+  else if(!serverMsg.name.localeCompare("gameState")){
+    document.getElementById("libPol").innerText = serverMsg.body.liberalPolicies;
+    document.getElementById("fasPol").innerText = serverMsg.body.fascistPolicies;
+    updatePlayersField(serverMsg);
+    document.getElementById("electionTracker").innerText = serverMsg.body.electionTracker;
+    document.getElementById("cardPile").innerText = serverMsg.body.cardPile;
+    document.getElementById("discardPile").innerText = serverMsg.body.discardPile;
   }
-  else if(!serverMsg.messageType.localeCompare("gameEnd")){
+  else if(!serverMsg.name.localeCompare("gameEnd")){
     connection.close();
     document.getElementById("titleScreen").disabled = false;
       document.getElementById("titleScreen").style.display = "initial";
