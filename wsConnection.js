@@ -1,6 +1,6 @@
 var connection; 
 
-function coonnect(){
+function connect(){
   connection = new WebSocket('wss://' + document.getElementById("ip").value + ":" + document.getElementById("port").value);
   connection.onopen = function (){
     var msg = {messageType: "signup", name: document.getElementById("name").value, lobby:document.getElementById("lobby").value};
