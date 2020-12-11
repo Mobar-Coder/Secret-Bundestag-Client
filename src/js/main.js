@@ -3,14 +3,13 @@ window.onload = function () {
     let connHandler = new ConnectionHandler(onGameStart, onRequestDecision, onGameState, onGameEnd);
     let renderer = new Render();
 
-    domHandler.showLoginModal();
+    domHandler.showDecisionsModal("Test", ["a", "b"]);
 
     function onLoginButtonClick(user, lobby, server, port) {
         let success = connHandler.connect(user, lobby, server, port);
 
         if (success) {
             domHandler.hideLoginModal();
-            renderer.panToTable();
         } else {
             // @TODO error
         }
