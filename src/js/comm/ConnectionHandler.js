@@ -18,6 +18,29 @@ class ConnectionHandler {
         let conn = this.connection; // Weird implicit closure hack...
         this.connection.onopen = function () {
             conn.send(JSON.stringify(messages.createJoinMessage(name, lobby)));
+        };
+
+        this.connection.onmessage = function (event) {
+            try {
+                let json = JSON.parse(event.data);
+
+                switch (json.name) {
+                    case "gameStart":
+                        this.onStart(json.body);
+                        break;
+                    case "requestDecision":
+                        this.onRequestDecision(json.body);
+                        break;
+                    case "gameState":
+                        this.onGameState(json.body);
+                        break;
+                    case "gameEnd":
+                        this.onEnd(json.body);
+                        break;
+                }
+            } catch (e) {
+                console.warn("Error parsing incomming message", e);
+            }
         }
 
         return true;

@@ -1,6 +1,6 @@
 window.onload = function () {
     let domHandler = new DomHandler(onLoginButtonClick);
-    let connHandler = new ConnectionHandler();
+    let connHandler = new ConnectionHandler(onGameStart, onRequestDecision, onGameState, onGameEnd);
     let renderer = new Render();
 
     domHandler.showLoginModal();
@@ -10,9 +10,26 @@ window.onload = function () {
 
         if (success) {
             domHandler.hideLoginModal();
+            renderer.panToTable();
         } else {
             // @TODO error
         }
+    }
+
+    function onGameStart() {
+        renderer.panToTable();
+    }
+
+    function onRequestDecision() {
+
+    }
+
+    function onGameState() {
+
+    }
+
+    function onGameEnd() {
+
     }
 
 }
