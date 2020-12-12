@@ -1,5 +1,5 @@
 window.onload = function () {
-    let domHandler = new DomHandler(onLoginButtonClick, onGameStartClick);
+    let domHandler = new DomHandler(onLoginButtonClick, onGameStartClick, onDecisionSubmit);
     let connHandler = new ConnectionHandler(onAccept, onGameStart, onRequestDecision, onGameState, onGameEnd, onError);
     let renderer = new Render();
 
@@ -11,6 +11,10 @@ window.onload = function () {
 
     function onGameStartClick() {
         connHandler.send(messages.createStartRequest());
+    }
+
+    function onDecisionSubmit(decision) {
+        connHandler.send(messages.createGenericReply(decision));
     }
 
     function onAccept(body) {

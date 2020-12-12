@@ -1,5 +1,5 @@
 class DomHandler {
-    constructor(onLoginButtonClick, onStartGameClick) {
+    constructor(onLoginButtonClick, onStartGameClick, onDecisionSubmit) {
         this.loginModal = new bootstrap.Modal(document.getElementById('modalLogin'), {
             backdrop: false,
             keyboard: false
@@ -27,6 +27,12 @@ class DomHandler {
         });
 
         $("#buttonStartGame").click(onStartGameClick);
+
+        let onSubmit = onDecisionSubmit;
+        $("#decisionsButtonSubmit").click(function () {
+            let selected = $('input[name=decisionRadio]:checked').val()
+            onSubmit(selected);
+        })
     }
 
     showLoginModal() {
@@ -46,7 +52,7 @@ class DomHandler {
             optionsHtml +=
                 "<div class=\"form-check\">\n"
                 + "<input class=\"form-check-input\" type=\"radio\" name=\"decisionsRadio\" id=\"" + opt
-                + "\"> <label class=\"form-check-label\" for=\"" + opt + "\">" + opt + "</label>"
+                + "\" value='"+opt+"'> <label class=\"form-check-label\" for=\"" + opt + "\">" + opt + "</label>"
                 + "</div>";
         }
 
