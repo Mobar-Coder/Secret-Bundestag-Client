@@ -1,16 +1,12 @@
 window.onload = function () {
     let domHandler = new DomHandler(onLoginButtonClick);
-    let connHandler = new ConnectionHandler(onAccept, onGameStart, onRequestDecision, onGameState, onGameEnd);
+    let connHandler = new ConnectionHandler(onAccept, onGameStart, onRequestDecision, onGameState, onGameEnd, onError);
     let renderer = new Render();
 
-    domHandler.showDecisionsModal("Test", ["a", "b"]);
+    domHandler.showLoginModal();
 
     function onLoginButtonClick(user, lobby, server, port) {
-        let success = connHandler.connect(user, lobby, server, port);
-
-        if (!success) {
-            domHandler.showErrorModal("Error connecting to server!");
-        }
+        connHandler.connect(user, lobby, server, port);
     }
 
     function onAccept() {
@@ -31,6 +27,10 @@ window.onload = function () {
 
     function onGameEnd() {
 
+    }
+
+    function onError() {
+        domHandler.showErrorModal("Error connecting to server!");
     }
 
 }

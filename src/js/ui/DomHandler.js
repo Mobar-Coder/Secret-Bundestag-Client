@@ -10,7 +10,7 @@ class DomHandler {
             keyboard: false
         });
 
-        this.errorModal = new bootstrap.Modal(document.getElementById('modalDecisions'));
+        this.errorModal = new bootstrap.Modal(document.getElementById('modalError'));
 
         $("#loginButtonConnect").click(function () {
             onLoginButtonClick(
@@ -20,6 +20,11 @@ class DomHandler {
                 $("#loginInputPort").val()
             );
         });
+
+        let errorModal = this.errorModal;
+        $("#modalErrorClose").click(function () {
+            errorModal.hide();
+        })
     }
 
     showLoginModal() {

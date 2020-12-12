@@ -9,7 +9,7 @@ let messages = {
     },
 
     createJoinMessage: function (name, lobby) {
-        return this.createMessage("Join", {
+        return this.createMessage("JoinRequest", {
             name: name,
             lobby: lobby
         });
