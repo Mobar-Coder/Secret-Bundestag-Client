@@ -44,7 +44,7 @@ class Render {
         let state = 0;
         const delta = 0.005;
 
-        let cam = this.camera; // Closures are brocken
+        let cam = this.camera; // Closures are broken
         let scene = this.scene;
         let renderer = this.renderer;
 

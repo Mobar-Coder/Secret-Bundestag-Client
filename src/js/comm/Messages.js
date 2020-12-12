@@ -9,14 +9,14 @@ let messages = {
     },
 
     createJoinMessage: function (name, lobby) {
-        return this.createMessage("join", {
+        return this.createMessage("Join", {
             name: name,
             lobby: lobby
         });
     },
 
     createGenericReply: function (decision) {
-        return this.createMessage("decision", {
+        return this.createMessage("Decision", {
             decision: decision
         })
     }

@@ -1,5 +1,6 @@
 class ConnectionHandler {
-    constructor(onStart, onRequestDecision, onGameState, onEnd) {
+    constructor(onAccept, onStart, onRequestDecision, onGameState, onEnd) {
+        this.onAccept = onAccept;
         this.onStart = onStart;
         this.onRequestDecision = onRequestDecision;
         this.onGameState = onGameState;
@@ -25,16 +26,19 @@ class ConnectionHandler {
                 let json = JSON.parse(event.data);
 
                 switch (json.name) {
-                    case "gameStart":
+                    case "Accept":
+                        this.onAccept(json.body);
+                        break;
+                    case "GameStart":
                         this.onStart(json.body);
                         break;
-                    case "requestDecision":
+                    case "RequestDecision":
                         this.onRequestDecision(json.body);
                         break;
-                    case "gameState":
+                    case "GameState":
                         this.onGameState(json.body);
                         break;
-                    case "gameEnd":
+                    case "GameEnd":
                         this.onEnd(json.body);
                         break;
                 }

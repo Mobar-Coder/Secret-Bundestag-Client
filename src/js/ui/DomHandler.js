@@ -10,6 +10,8 @@ class DomHandler {
             keyboard: false
         });
 
+        this.errorModal = new bootstrap.Modal(document.getElementById('modalDecisions'));
+
         $("#loginButtonConnect").click(function () {
             onLoginButtonClick(
                 $("#loginInputName").val(),
@@ -48,5 +50,14 @@ class DomHandler {
 
     hideDecisionsModal() {
         this.decisionModal.hide()
+    }
+
+    showErrorModal(message) {
+        $("#errorModalText").html(message);
+        this.errorModal.show();
+    }
+
+    hideErrorModal() {
+        this.errorModal.hide();
     }
 }
