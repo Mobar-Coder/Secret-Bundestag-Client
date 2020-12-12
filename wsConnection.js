@@ -1,10 +1,10 @@
 var connection; 
 
 function connect(){
-  connection = new WebSocket('wss://' + document.getElementById("ip").value + ":" + document.getElementById("port").value);
+  connection = new WebSocket('ws://' + document.getElementById("ip").value + ":" + document.getElementById("port").value);
   connection.onopen = function (){
     var msg = {name: document.getElementById("name").value, lobby:document.getElementById("lobby").value};
-    connection.send(makeMessage("join", msg));
+    connection.send(makeMessage("JoinRequest", msg));
   }
 
   connection.onmessage = function(event) {
