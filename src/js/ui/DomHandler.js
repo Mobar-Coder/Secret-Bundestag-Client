@@ -1,5 +1,5 @@
 class DomHandler {
-    constructor(onLoginButtonClick) {
+    constructor(onLoginButtonClick, onStartGameClick) {
         this.loginModal = new bootstrap.Modal(document.getElementById('modalLogin'), {
             backdrop: false,
             keyboard: false
@@ -24,7 +24,9 @@ class DomHandler {
         let errorModal = this.errorModal;
         $("#modalErrorClose").click(function () {
             errorModal.hide();
-        })
+        });
+
+        $("#buttonStartGame").click(onStartGameClick);
     }
 
     showLoginModal() {
@@ -62,7 +64,11 @@ class DomHandler {
         this.errorModal.show();
     }
 
-    hideErrorModal() {
-        this.errorModal.hide();
+    showStartGame() {
+        $("#buttonStartGame").show();
+    }
+
+    hideStartGame() {
+        $("#buttonStartGame").hide();
     }
 }

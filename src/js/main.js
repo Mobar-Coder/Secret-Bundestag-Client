@@ -1,5 +1,5 @@
 window.onload = function () {
-    let domHandler = new DomHandler(onLoginButtonClick);
+    let domHandler = new DomHandler(onLoginButtonClick, onGameStartClick);
     let connHandler = new ConnectionHandler(onAccept, onGameStart, onRequestDecision, onGameState, onGameEnd, onError);
     let renderer = new Render();
 
@@ -9,11 +9,22 @@ window.onload = function () {
         connHandler.connect(user, lobby, server, port);
     }
 
-    function onAccept() {
+    function onGameStartClick() {
+        connHandler.send(messages.createStartRequest());
+    }
+
+    function onAccept(body) {
         domHandler.hideLoginModal();
+        console.log(body);
+        if (body.leader) {
+            domHandler.showStartGame();
+        } else {
+            domHandler.hideStartGame();
+        }
     }
 
     function onGameStart() {
+        domHandler.hideStartGame();
         renderer.panToTable();
     }
 
