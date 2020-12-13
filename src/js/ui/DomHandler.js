@@ -35,7 +35,20 @@ class DomHandler {
         })
     }
 
-    showLoginModal() {
+    showLoginModal(userName, lobby, server, port) {
+        if (userName !== undefined) {
+            $("#loginInputName").val(userName);
+        }
+        if (lobby !== undefined) {
+            $("#loginInputLobby").val(lobby);
+        }
+        if (server !== undefined) {
+            $("#loginInputServer").val(server);
+        }
+        if (port !== undefined) {
+            $("#loginInputPort").val(port);
+        }
+
         this.loginModal.show();
     }
 
@@ -76,5 +89,18 @@ class DomHandler {
 
     hideStartGame() {
         $("#buttonStartGame").hide();
+    }
+
+    setRole(role) {
+        $("#pRole").html(role);
+    }
+
+    setTeamInfo(info) {
+        $("#pTeam").html(info);
+    }
+
+    setPoliciesInfo(liberalPolicies, fascistPolicies, electionTracker) {
+        $("#pPolicies").html("Liberal: " + liberalPolicies, "Fascist: " + fascistPolicies +
+            "(Elections: "+ electionTracker + ")");
     }
 }
