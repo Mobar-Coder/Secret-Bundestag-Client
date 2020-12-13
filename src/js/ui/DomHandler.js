@@ -1,5 +1,5 @@
 class DomHandler {
-    constructor(onLoginButtonClick, onStartGameClick, onDecisionSubmit) {
+    constructor(onLoginButtonClick, onStartGameClick, onDecisionSubmit, onWinAccept) {
         this.loginModal = new bootstrap.Modal(document.getElementById('modalLogin'), {
             backdrop: false,
             keyboard: false
@@ -11,6 +11,11 @@ class DomHandler {
         });
 
         this.errorModal = new bootstrap.Modal(document.getElementById('modalError'));
+
+        this.winModal = new bootstrap.Modal(document.getElementById('modalWin'), {
+            backdrop: false,
+            keyboard: false
+        });
 
         $("#loginButtonConnect").click(function () {
             onLoginButtonClick(
@@ -33,6 +38,12 @@ class DomHandler {
             let selected = $('input[name=decisionRadio]:checked').val()
             onSubmit(selected);
         })
+
+        let winModal = this.winModal;
+        $("#modalWinClose").click(function () {
+            winModal.hide();
+            onWinAccept();
+        });
     }
 
     showLoginModal(userName, lobby, server, port) {
@@ -95,12 +106,29 @@ class DomHandler {
         $("#pRole").html(role);
     }
 
-    setTeamInfo(info) {
-        $("#pTeam").html(info);
-    }
-
     setPoliciesInfo(liberalPolicies, fascistPolicies, electionTracker) {
         $("#pPolicies").html("Liberal: " + liberalPolicies, "Fascist: " + fascistPolicies +
             "(Elections: "+ electionTracker + ")");
+    }
+
+    setPlayers(players) {
+        let html = "";
+        for (let c=0; c<players.length; ++c) {
+            let text = players[c].name;
+            if (players[c].govRole != null) {
+                text += " (" + players[c].govRole + ")";
+            }
+            if (!players[c].alive) {
+                text = "<strike>" + text + "</strike>";
+            }
+
+            html += "<li>" + text + "</li>";
+        }
+        $("#listPlayers").html(html);
+    }
+
+    showWinner(winner) {
+        $("#winModalText").html("The winner is: " + winner);
+        this.winModal.show();
     }
 }

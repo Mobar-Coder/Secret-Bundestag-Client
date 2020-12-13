@@ -1,5 +1,5 @@
 window.onload = function () {
-    let domHandler = new DomHandler(onLoginButtonClick, onGameStartClick, onDecisionSubmit);
+    let domHandler = new DomHandler(onLoginButtonClick, onGameStartClick, onDecisionSubmit, onWinAccept);
     let connHandler = new ConnectionHandler(onAccept, onGameStart, onRequestDecision, onGameState, onGameEnd, onError);
     let renderer = new Render();
 
@@ -51,14 +51,25 @@ window.onload = function () {
             body.cardPile, body.discardPile);
 
         domHandler.setPoliciesInfo(body.liberalPolicies, body.fascistPolicies, body.electrionTracker);
+        domHandler.setPlayers(body.players);
     }
 
-    function onGameEnd() {
-
+    function onGameEnd(body) {
+        domHandler.showWinner(body.winnerTeam);
     }
 
     function onError() {
         domHandler.showErrorModal("Error connecting to server!");
     }
 
+    function onWinAccept() {
+        renderer.panFromTable(function () {
+            domHandler.showLoginModal(
+                localStorage.getItem("userName"),
+                localStorage.getItem("lobby"),
+                localStorage.getItem("server"),
+                localStorage.getItem("port")
+            );
+        });
+    }
 }

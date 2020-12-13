@@ -71,17 +71,27 @@ class Render {
         }, resolution);
     }
 
-    panToTable() {
-        let cam = this.camera; // Closures are broken
+    panAnim(state, cam) {
+        let r = 5 - 4.5 * state;
+        cam.position.x = Math.sin(Math.PI * (0.25 + state * 0.75)) * r;
+        cam.position.y = Math.cos(Math.PI * (0.25 + state * 0.75)) * r;
+        cam.position.z = r + 1.7;
+        cam.up = new THREE.Vector3(0, 0, 1);
+        cam.lookAt(0.0, 0, 1);
+    }
 
+    panToTable() {
+        let that = this;
         this.animate(function (state) {
-            let r = 5 - 4.5 * state;
-            cam.position.x = Math.sin(Math.PI * (0.25 + state * 0.75)) * r;
-            cam.position.y = Math.cos(Math.PI * (0.25 + state * 0.75)) * r;
-            cam.position.z = r + 1.7;
-            cam.up = new THREE.Vector3(0, 0, 1);
-            cam.lookAt(0.0, 0, 1);
+            that.panAnim(state, that.camera);
         }, 0.5);
+    }
+
+    panFromTable(end) {
+        let that = this;
+        this.animate(function (state) {
+            that.panAnim(1-state, that.camera);
+        }, 0.5, end);
     }
 
     showNumberOfCards(liberal, fascist, cardPile, discardPile) {
