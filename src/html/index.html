@@ -11,11 +11,27 @@
 </head>
 <body>
 
-<div id="actionBar" class="actionBar">
+<div class="actionBar top">
     <div class="right">
+        <p id="pRole"></p>
     </div>
     <div class="left">
         <button class="btn btn-danger" id="buttonStartGame" style="display: none">Start Game</button>
+        <ul id="listPlayers">
+            <li>A (President)</li>
+            <li>B (Chancellor)</li>
+            <li>C</li>
+            <li><strike>D</strike></li>
+        </ul>
+        </p>
+    </div>
+</div>
+
+<div class="actionBar bottom">
+    <div class="right">
+        <p id="pPolicies"></p>
+    </div>
+    <div class="left">
     </div>
 </div>
 
@@ -88,24 +104,40 @@
                 <button type="button" class="btn btn-primary" id="modalErrorClose">Ok</button>
             </div>
         </div>
-        </ddiv>
     </div>
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
-    <script src="https://threejs.org/build/three.js"></script>
-    <script src="../js/main.js"></script>
-    <script src="../js/ui/Render.js"></script>
-    <script src="../js/ui/DomHandler.js"></script>
-    <script src="../js/comm/ConnectionHandler.js"></script>
-    <script src="../js/comm/Messages.js"></script>
+<div id="modalWin" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">The game has ended!</h5>
+            </div>
+            <div class="modal-body">
+                <p id="winModalText"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="modalWinClose">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="https://threejs.org/build/three.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/ui/Render.js"></script>
+<script src="../js/ui/DomHandler.js"></script>
+<script src="../js/comm/ConnectionHandler.js"></script>
+<script src="../js/comm/Messages.js"></script>
 </body>
 
 </html>
