@@ -1,5 +1,5 @@
 class DomHandler {
-    constructor(onLoginButtonClick) {
+    constructor(onLoginButtonClick, onStartGameClick, onDecisionSubmit, onWinAccept) {
         this.loginModal = new bootstrap.Modal(document.getElementById('modalLogin'), {
             backdrop: false,
             keyboard: false
@@ -11,6 +11,11 @@ class DomHandler {
         });
 
         this.errorModal = new bootstrap.Modal(document.getElementById('modalError'));
+
+        this.winModal = new bootstrap.Modal(document.getElementById('modalWin'), {
+            backdrop: false,
+            keyboard: false
+        });
 
         $("#loginButtonConnect").click(function () {
             onLoginButtonClick(
@@ -24,10 +29,37 @@ class DomHandler {
         let errorModal = this.errorModal;
         $("#modalErrorClose").click(function () {
             errorModal.hide();
+        });
+
+        $("#buttonStartGame").click(onStartGameClick);
+
+        let onSubmit = onDecisionSubmit;
+        $("#decisionsButtonSubmit").click(function () {
+            let selected = $('input[name=decisionRadio]:checked').val()
+            onSubmit(selected);
         })
+
+        let winModal = this.winModal;
+        $("#modalWinClose").click(function () {
+            winModal.hide();
+            onWinAccept();
+        });
     }
 
-    showLoginModal() {
+    showLoginModal(userName, lobby, server, port) {
+        if (userName !== undefined) {
+            $("#loginInputName").val(userName);
+        }
+        if (lobby !== undefined) {
+            $("#loginInputLobby").val(lobby);
+        }
+        if (server !== undefined) {
+            $("#loginInputServer").val(server);
+        }
+        if (port !== undefined) {
+            $("#loginInputPort").val(port);
+        }
+
         this.loginModal.show();
     }
 
@@ -44,7 +76,7 @@ class DomHandler {
             optionsHtml +=
                 "<div class=\"form-check\">\n"
                 + "<input class=\"form-check-input\" type=\"radio\" name=\"decisionsRadio\" id=\"" + opt
-                + "\"> <label class=\"form-check-label\" for=\"" + opt + "\">" + opt + "</label>"
+                + "\" value='"+opt+"'> <label class=\"form-check-label\" for=\"" + opt + "\">" + opt + "</label>"
                 + "</div>";
         }
 
@@ -62,7 +94,41 @@ class DomHandler {
         this.errorModal.show();
     }
 
-    hideErrorModal() {
-        this.errorModal.hide();
+    showStartGame() {
+        $("#buttonStartGame").show();
+    }
+
+    hideStartGame() {
+        $("#buttonStartGame").hide();
+    }
+
+    setRole(role) {
+        $("#pRole").html(role);
+    }
+
+    setPoliciesInfo(liberalPolicies, fascistPolicies, electionTracker) {
+        $("#pPolicies").html("Liberal: " + liberalPolicies, "Fascist: " + fascistPolicies +
+            "(Elections: "+ electionTracker + ")");
+    }
+
+    setPlayers(players) {
+        let html = "";
+        for (let c=0; c<players.length; ++c) {
+            let text = players[c].name;
+            if (players[c].govRole != null) {
+                text += " (" + players[c].govRole + ")";
+            }
+            if (!players[c].alive) {
+                text = "<strike>" + text + "</strike>";
+            }
+
+            html += "<li>" + text + "</li>";
+        }
+        $("#listPlayers").html(html);
+    }
+
+    showWinner(winner) {
+        $("#winModalText").html("The winner is: " + winner);
+        this.winModal.show();
     }
 }
