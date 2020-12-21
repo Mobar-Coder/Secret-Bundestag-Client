@@ -48,4 +48,8 @@ class ConnectionHandler {
             }
         };
     }
+
+    send(msg) {
+        this.connection.send(JSON.stringify(msg));
+    }
 }

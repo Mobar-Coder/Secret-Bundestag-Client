@@ -19,5 +19,9 @@ let messages = {
         return this.createMessage("Decision", {
             decision: decision
         })
+    },
+
+    createStartRequest: function () {
+        return this.createMessage("StartRequest", {});
     }
 }

@@ -1,0 +1,24 @@
+.actionBar {
+    position: fixed;
+    width: 100%;
+    padding: 10px;
+}
+
+.top {
+    top: 0;
+}
+
+.bottom {
+    bottom: 0;
+    height: 100px;
+}
+
+.actionBar .left {
+    position: absolute;
+    right: 10px;
+}
+
+.actionBar .right {
+    position: absolute;
+    left: 10px;
+}
